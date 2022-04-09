@@ -19,7 +19,7 @@
     "monitor",
     "development",
     "restart",
-    "autoload",
+    "autoreload",
     "reload",
     "terminal",
     "c",

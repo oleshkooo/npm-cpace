@@ -2,13 +2,12 @@
 
 cpace is a tool that helps develop [.c] and [.cpp] based applications by automatically restarting them when file changes in the directory are detected.
 
-cpace does **not** require *any* additional changes to your code or method of development. cpace is a replacement wrapper for `C` and `C++`. To use `cpace`.
+cpace does **not** require *any* additional changes to your code or method of development.
 
-<!-- , write `cpace fileName.cpp` on the command line when executing your script. -->
 
 # Installation
 
-Either through cloning with git or by using [npm](https://www.npmjs.com/package/cpace) (the recommended way):
+The best way to install cpace is using [npm](https://www.npmjs.com/package/cpace) or [yarn](https://yarnpkg.com):
 
 ```bash
 # using npm:
