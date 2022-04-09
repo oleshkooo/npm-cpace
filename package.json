@@ -1,0 +1,41 @@
+{
+  "name": "cpace",
+  "version": "1.0.0",
+  "description": "Nodemon for C/C++ files. Monitor for any changes in your [.c] or [.cpp] application and automatically restart it - perfect for development",
+  "main": "cpace.js",
+  "type": "module",
+  "preferGlobal": true,
+  "bin": {
+    "cpace": "cpace.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Oleshkooo/cpace.git"
+  },
+  "keywords": [
+    "cpace",
+    "cli",
+    "monitor",
+    "monitor",
+    "development",
+    "restart",
+    "autoload",
+    "reload",
+    "terminal",
+    "c",
+    "c++",
+    "cpp"
+  ],
+  "author": {
+    "name": "Oleshkooo",
+    "url": "https://github.com/Oleshkooo"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Oleshkooo/cpace/issues"
+  },
+  "homepage": "https://github.com/Oleshkooo/cpace#readme",
+  "dependencies": {
+    "chalk": "^5.0.1"
+  }
+}
