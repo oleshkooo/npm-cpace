@@ -12,7 +12,9 @@ const red = chalk.rgb(255, 0, 0).bold
 
 const app = {
     init: function() {
-        if (args[0] === '--help') {
+        console.log(blue(`  [${packageName}] Starting ${packageName}`))
+
+        if (args[0] === '--help' || args[0] === '-h') {
             console.log(blue(`  [${packageName}]\n`))
             console.log(blue(`\t${packageName} is used to automatically compile and run\n\t      a [.c] or [.cpp] file when it is modified\n\n`))
             console.log(blue('\tUsage:\n'))
@@ -47,7 +49,6 @@ const app = {
             return
         }
 
-        console.log(blue(`  [${packageName}] v1.0.0`))
         console.log(blue(`  [${packageName}] Watching extensions: .c, .cpp`))
 
         this.watchFile(fileName, extension)
@@ -71,6 +72,7 @@ const app = {
     },
 
     compileFile: function(fileName, extension) {
+        let done = false
         let error = false
         let exe = '.exe'
         let compileFile
@@ -81,11 +83,17 @@ const app = {
             compileFile = spawn('gcc', ["-o", fileName+exe, fileName+extension])
 
         compileFile.on('error', (error) => {
-            console.error(blue(`  [${packageName}] `) + red('Error'))
+            if (!done) {
+                console.error(blue(`  [${packageName}] `) + red('Error'))
+                done = true
+            }
             error = true
         })
         compileFile.stderr.on('data', (data) => {
-            console.error(blue(`  [${packageName}] `) + red('Compiling error'))
+            if (!done) {
+                console.error(blue(`  [${packageName}] `) + red('Compiling error'))
+                done = true
+            }
             error = true
         })
         compileFile.stdout.on('data', (data) => {
