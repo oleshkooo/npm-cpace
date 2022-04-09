@@ -8,7 +8,7 @@ cpace does **not** require *any* additional changes to your code or method of de
 
 # Installation
 
-Either through cloning with git or by using [npm](http://npmjs.org) (the recommended way):
+Either through cloning with git or by using [npm](https://www.npmjs.com/package/cpace) (the recommended way):
 
 ```bash
 # using npm:
