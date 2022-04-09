@@ -71,6 +71,7 @@ const app = {
     },
 
     compileFile: function(fileName, extension) {
+        let done = false
         let error = false
         let exe = '.exe'
         let compileFile
@@ -81,11 +82,17 @@ const app = {
             compileFile = spawn('gcc', ["-o", fileName+exe, fileName+extension])
 
         compileFile.on('error', (error) => {
-            console.error(blue(`  [${packageName}] `) + red('Error'))
+            if (!done) {
+                console.error(blue(`  [${packageName}] `) + red('Error'))
+                done = true
+            }
             error = true
         })
         compileFile.stderr.on('data', (data) => {
-            console.error(blue(`  [${packageName}] `) + red('Compiling error'))
+            if (!done) {
+                console.error(blue(`  [${packageName}] `) + red('Compiling error'))
+                done = true
+            }
             error = true
         })
         compileFile.stdout.on('data', (data) => {
