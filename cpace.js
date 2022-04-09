@@ -12,6 +12,8 @@ const red = chalk.rgb(255, 0, 0).bold
 
 const app = {
     init: function() {
+        console.log(blue(`  [${packageName}] Starting ${packageName}`))
+
         if (args[0] === '--help' || args[0] === '-h') {
             console.log(blue(`  [${packageName}]\n`))
             console.log(blue(`\t${packageName} is used to automatically compile and run\n\t      a [.c] or [.cpp] file when it is modified\n\n`))
@@ -47,7 +49,6 @@ const app = {
             return
         }
 
-        console.log(blue(`  [${packageName}] v1.0.0`))
         console.log(blue(`  [${packageName}] Watching extensions: .c, .cpp`))
 
         this.watchFile(fileName, extension)
