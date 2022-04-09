@@ -12,7 +12,7 @@ const red = chalk.rgb(255, 0, 0).bold
 
 const app = {
     init: function() {
-        if (args[0] === '--help') {
+        if (args[0] === '--help' || args[0] === '-h') {
             console.log(blue(`  [${packageName}]\n`))
             console.log(blue(`\t${packageName} is used to automatically compile and run\n\t      a [.c] or [.cpp] file when it is modified\n\n`))
             console.log(blue('\tUsage:\n'))
