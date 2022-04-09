@@ -109,6 +109,7 @@ const app = {
 
     openFile: function(exeFile) {
         console.log(blue(`  [${packageName}] Starting '${exeFile}'`))
+
         execFile(exeFile, (error, stdout, stderr) => {
             if (error)
                 return console.error(blue(`  [${packageName}] `) + red('Error'))
