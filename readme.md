@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.png" alt="Nodemon Logo">
+  <img src="./logo.png" alt="Nodemon Logo" width="300px">
 </p>
 
 
