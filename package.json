@@ -1,6 +1,6 @@
 {
   "name": "cpace",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Nodemon for C/C++ files. Monitor for any changes in your [.c] and [.cpp] application and automatically restart it - perfect for development",
   "main": "cpace.js",
   "type": "module",
