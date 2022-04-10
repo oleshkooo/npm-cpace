@@ -29,14 +29,17 @@ npm install --save-dev cpace
 yarn add cpace -D
 ```
 
-With a local installation, cpace will not be available in your system path or you can't use it directly from the command line. Instead, the local installation of cpace can be run by calling it from within an npm script (such as `npm start`) or using `npx cpace`.
+With a local installation, cpace will not be available in your system path or you can't use it directly from the command line.
+With a global installation cpace will be available anywhere.
 
 # Usage
 
 cpace wraps your application, so you just have to pass your file name:
 
 ```bash
-cpace [your C/C++ app]
+cpace [file.c]
+# or
+cpace [file.cpp]
 ```
 
 For CLI options, use the `-h` (or `--help`) argument:
@@ -45,8 +48,27 @@ For CLI options, use the `-h` (or `--help`) argument:
 cpace -h
 ```
 
-Any output from this script is prefixed with `[cpace]`, otherwise all output from your application.
+For compilation without starting the program, use the `-c` (or `--compile`) argument:
+
+```bash
+cpace -c [file.cpp]
+```
+
+For watching a directory and compiling specific file, use the `-d` (or `--directory`) argument:
+
+```bash
+# the file name must be after the -d argument
+cpace {directory} -d [file.cpp]
+```
+
+Also, you can use several arguments:
+
+```bash
+cpace {directory} -d [file.cpp] -с
+# or
+cpace {directory} -c -d [file.cpp]
+```
 
 ## Automatic re-running
 
-cpace was originally written to restart hanging processes such as C and C++ applications. If your script exits cleanly, cpace will continue to monitor the file and restart it if there are any changes.
+cpace was written to restart C and C++ applications. If your script exits cleanly, cpace will continue to monitor the file and restart it if there are any changes.
