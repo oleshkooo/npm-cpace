@@ -7,8 +7,6 @@
 # cpace
 cpace is a tool that helps develop [.c] and [.cpp] based applications by automatically restarting them when file changes in the directory are detected. The library was built to automate the generation of C/C++ .exe files when writing .c/.cpp applications.
 
-cpace does **not** require *any* additional changes to your code or method of development.
-
 
 
 # Requirements
@@ -72,3 +70,8 @@ cpace {directory} -c -d [file.cpp]
 
 ## Automatic re-running
 cpace was written to restart C and C++ applications. If your script exits cleanly, cpace will continue to monitor the file and restart it if there are any changes.
+
+
+
+## Notice
+With cpace you can't use `gets()`, `fgets()`, `getline()`, `getchar()` and similar functions to get data from the console *(maybe this will be fixed in the future)*.
