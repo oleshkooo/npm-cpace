@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="./logo.png" alt="Nodemon Logo" width="300px">
+  <img src="./logo.png" alt="cpace Logo" width="300px">
 </p>
 
 
@@ -12,8 +12,8 @@ cpace does **not** require *any* additional changes to your code or method of de
 
 
 # Requirements
-* `Node.js` must be installed on your PC ([how to install](https://nodejs.dev/learn/how-to-install-nodejs) / [download](https://nodejs.dev/download))
-* `gcc`/`g++` must be installed on your PC ([how to install](https://www.youtube.com/watch?v=sXW2VLrQ3Bs) / [download](https://sourceforge.net/projects/mingw))
+* `Node.js` must be installed on your PC (**[how to install](https://nodejs.dev/learn/how-to-install-nodejs) / [download](https://nodejs.dev/download)**)
+* `gcc`/`g++` must be installed on your PC (**[how to install](https://www.youtube.com/watch?v=sXW2VLrQ3Bs) / [download](https://sourceforge.net/projects/mingw)**)
 
 
 # Installation
