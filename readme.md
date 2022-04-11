@@ -68,6 +68,19 @@ cpace {directory} -c -d [file.cpp]
 
 
 
+# Update
+If you installed cpace **locally**, use:
+```bash
+npm update cpace
+```
+
+If you installed cpace **globally**, use:
+```bash
+npm update -g cpace
+```
+
+
+
 ## Automatic re-running
 cpace was written to restart C and C++ applications. If your script exits cleanly, cpace will continue to monitor the file and restart it if there are any changes.
 
