@@ -74,4 +74,4 @@ cpace was written to restart C and C++ applications. If your script exits cleanl
 
 
 ## Notice
-With cpace you can't use `gets()`, `fgets()`, `getline()`, `getchar()` and similar functions to get data from the console *(maybe this will be fixed in the future)*.
+With cpace you can't use `cin >>`, `gets()`, `getchar()`, `getline()` and similar functions to get data from the console *(maybe this will be fixed in the future)*.
