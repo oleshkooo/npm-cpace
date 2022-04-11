@@ -5,7 +5,7 @@
 
 
 # cpace
-cpace is a tool that helps develop [.c] and [.cpp] based applications by automatically restarting them when file changes in the directory are detected. The library was built to automate the generation of C/C++ .exe files when writing .c/.cpp applications.
+cpace is a tool that helps develop [.c] and [.cpp] based applications by automatically restarting them when file changes are detected. The package was built to automate the compilation and running of .exe files when writing C/C++ applications.
 
 
 
