@@ -81,10 +81,12 @@ npm update -g cpace
 
 
 
-## Automatic re-running
-cpace was written to restart C and C++ applications. If your script exits cleanly, cpace will continue to monitor the file and restart it if there are any changes.
 
 
 
 ## Notice
+cpace was written to restart C and C++ applications. If your script exits cleanly, cpace will continue to monitor the file and restart it if there are any changes. If there is an error, cpace will notify you in the console.\
+\
+Tested on Windows 10, Windows 11.\
+\
 With cpace you can't use `cin >>`, `gets()`, `getchar()`, `getline()` and similar functions to get data from the console *(maybe this will be fixed in the future)*.

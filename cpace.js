@@ -139,7 +139,7 @@ const app = {
 
         compileFile.on('error', (error) => {
             if (!done) {
-                console.error(blue(prefix) + red(' Error'))
+                console.error(blue(prefix) + red(' Error\n') + error)
                 done = true
             }
             error = true
@@ -147,6 +147,7 @@ const app = {
         compileFile.stderr.on('data', (data) => {
             if (!done) {
                 console.error(blue(prefix) + red(' Compiling error'))
+                console.error(this.decode(data))
                 done = true
             }
             error = true
@@ -166,9 +167,9 @@ const app = {
     openFile: function(exeFile) {
         execFile(exeFile, (error, stdout, stderr) => {
             if (error)
-                return console.error(blue(prefix) + red(' Error'))
+                return console.error(blue(prefix) + red(' .exe Error\n') + error)
             if (stderr)
-                return console.error(blue(prefix) + red(' StdError'))
+                return console.error(blue(prefix) + red(' .exe StdError\n') + error)
 
             console.log(stdout)
         })
@@ -205,7 +206,7 @@ const app = {
 
         compileFile.on('error', (error) => {
             if (!done) {
-                console.error(blue(prefix) + red(' Error'))
+                console.error(blue(prefix) + red(' Error') + error)
                 done = true
             }
             error = true
@@ -213,6 +214,7 @@ const app = {
         compileFile.stderr.on('data', (data) => {
             if (!done) {
                 console.error(blue(prefix) + red(' Compiling error'))
+                console.error(this.decode(data))
                 done = true
             }
             error = true
@@ -229,6 +231,11 @@ const app = {
             }
         })
     },
+
+    decode: function(data) {
+        let decoded = data.toString('utf8')
+        return decoded
+    }
 }
 
 
