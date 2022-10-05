@@ -1,0 +1,35 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": ["google", "plugin:import/errors", "plugin:import/warnings"],
+    "overrides": [],
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "rules": {
+        "no-unused-vars": "off",
+        "linebreak-style": "off",
+        "semi": ["warn", "never"],
+        "eol-last": "off",
+        "indent": ["warn", 4],
+        "quotes": ["warn", "single"],
+        "prefer-const": "warn",
+        "max-len": "off",
+        "import/order": [
+            "warn",
+            {
+                "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+                "newlines-between": "always-and-inside-groups"
+            }
+        ],
+        "no-console": "off",
+        "require-jsdoc": "off",
+        "prefer-promise-reject-errors": "off",
+        "object-curly-spacing": ["warn", "always"],
+        "space-before-function-paren": "off",
+        "arrow-parens": "off"
+    }
+}

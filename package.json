@@ -1,41 +1,54 @@
 {
-  "name": "cpace",
-  "version": "1.2.1",
-  "description": "Nodemon for C/C++ files. Monitor for any changes in your [.c] and [.cpp] application and automatically restart it - perfect for development",
-  "main": "cpace.js",
-  "type": "module",
-  "preferGlobal": true,
-  "bin": {
-    "cpace": "cpace.js"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Oleshkooo/cpace.git"
-  },
-  "keywords": [
-    "cpace",
-    "cli",
-    "monitor",
-    "monitor",
-    "development",
-    "restart",
-    "autoreload",
-    "reload",
-    "terminal",
-    "c",
-    "c++",
-    "cpp"
-  ],
-  "author": {
-    "name": "Oleshkooo",
-    "url": "https://github.com/Oleshkooo"
-  },
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Oleshkooo/cpace/issues"
-  },
-  "homepage": "https://github.com/Oleshkooo/cpace#readme",
-  "dependencies": {
-    "chalk": "^5.0.1"
-  }
+    "name": "cpace",
+    "version": "1.2.1",
+    "description": "Nodemon for C/C++ files. Monitor for any changes in your [.c] and [.cpp] application and automatically restart it - perfect for development",
+    "main": "cpace.js",
+    "type": "module",
+    "preferGlobal": true,
+    "bin": {
+        "cpace": "cpace.js"
+    },
+    "scripts": {
+        "lint": "eslint .",
+        "lint:fix": "eslint --fix ."
+    },
+    "keywords": [
+        "cpace",
+        "cli",
+        "monitor",
+        "monitor",
+        "development",
+        "restart",
+        "autoreload",
+        "reload",
+        "terminal",
+        "c",
+        "c++",
+        "cpp"
+    ],
+    "author": {
+        "name": "Oleshkooo",
+        "url": "https://github.com/Oleshkooo"
+    },
+    "homepage": "https://github.com/Oleshkooo/npm-cpace#readme",
+    "license": "ISC",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/Oleshkooo/npm-cpace.git"
+    },
+    "bugs": {
+        "url": "https://github.com/Oleshkooo/npm-cpace/issues"
+    },
+    "dependencies": {
+        "chalk": "^5.0.1"
+    },
+    "devDependencies": {
+        "@eslint/create-config": "^0.3.1",
+        "eslint": "^8.24.0",
+        "eslint-config-google": "^0.14.0",
+        "eslint-config-prettier": "^8.5.0",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "prettier": "^2.7.1"
+    }
 }
