@@ -30,6 +30,7 @@
         "prefer-promise-reject-errors": "off",
         "object-curly-spacing": ["warn", "always"],
         "space-before-function-paren": "off",
-        "arrow-parens": "off"
+        "arrow-parens": "off",
+        "brace-style": "off"
     }
 }
