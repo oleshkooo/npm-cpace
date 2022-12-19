@@ -1,194 +1,145 @@
-#!/usr/bin/env node
+import { spawn, exec } from 'child_process'
 
-import fs from 'fs'
+import chokidar from 'chokidar'
 
-import { spawn, execFile } from 'child_process'
+import ConsoleLogs from './ConsoleLogs.js'
 
-import chalk from 'chalk'
 
-const args = process.argv.slice(2)
-const packageName = 'cpace'
-const prefix = `  [${packageName}]`
-const blue = chalk.rgb(101, 155, 211)
-const red = chalk.rgb(255, 0, 0).bold
+class Cpace {
+    constructor(args) {
+        if (this.helpF) this.help()
 
-let helpF = false
-let compileOnlyF = false
-let directoryF = false
-let directoryFIndex
-args.map((item, index) => {
-    if (item === '--help' || item === '-h') helpF = true
-    if (item === '--compile' || item === '-c') compileOnlyF = true
-    if (item === '--directory' || item === '-d') {
-        directoryF = true
-        directoryFIndex = index
-    }
-})
+        this.args = args
+        this.helpF = false
+        this.compileOnlyF = false
+        this.directoryF = false
+        this.directoryFIndex
+        this.args.map((item, index) => {
+            if (item === '--help' || item === '-h') this.helpF = true
+            if (item === '--compile' || item === '-c') this.compileOnlyF = true
+            if (item === '--directory' || item === '-d') {
+                this.directoryF = true
+                this.directoryFIndex = index
+            }
+        })
+        this.logs = new ConsoleLogs()
 
-const app = {
-    init: function () {
-        if (helpF) this.help()
-
-        console.log(blue(`${prefix} Starting ${packageName}`))
+        this.logs.starting()
 
         if (args[0] === undefined || args[0] === '') {
-            console.error(blue(prefix) + red(' Error: ') + blue('Not enough options'))
-            console.error(blue(`${prefix} Use -h (or --help) for more information`))
+            this.logs.notEnoughOptions()
             return
         }
 
-        console.log(blue(`${prefix} Watching extensions: .c, .cpp`))
+        this.logs.watchingExtensions()
 
-        const file = {
+        this.file = {
             directory: '',
             name: '',
             extension: '',
-            exe: '.exe',
+            exe: this.isWindows() ? '.exe' : '',
             watchPath: '',
             compilePath: '',
         }
 
-        if (directoryF) {
-            file.directory = args[0]
-            file.name = args[directoryFIndex + 1]
-
-            this.getExtension(file)
-
-            file.watchPath = file.directory
-            file.compilePath = file.directory + '/' + file.name
-            console.log(file)
+        if (this.directoryF) {
+            this.file.directory = args[0]
+            this.file.name = args[this.directoryFIndex + 1]
+            this.getExtension()
+            this.file.watchPath = this.file.directory
+            this.file.compilePath = this.file.directory + '/' + this.file.name
         } else {
-            file.name = args[0]
-
-            this.getExtension(file)
-
-            file.watchPath = file.name + file.extension
-            file.compilePath = file.name
+            this.file.name = args[0]
+            this.getExtension()
+            this.file.watchPath = this.file.name + this.file.extension
+            this.file.compilePath = this.file.name
         }
 
-        this.compileFile(file)
-        this.watchFile(file)
-    },
+        this.compileFile()
+        this.watchFile()
+    }
 
-    watchFile: function (file) {
-        let fsWait = false
 
-        console.log(blue(`${prefix} Watching '${file.watchPath}'`))
+    getExtension() {
+        if (this.file.name.includes('.cpp')) {
+            this.file.extension = '.cpp'
+            this.file.name = this.file.name.substring(0, this.file.name.length - 4)
+        } else if (this.file.name.includes('.c')) {
+            this.file.extension = '.c'
+            this.file.name = this.file.name.substring(0, this.file.name.length - 2)
+        } else {
+            this.file.extension = ''
+            this.logs.wrongFlag()
+            process.exit()
+        }
+    }
 
-        fs.watch(file.watchPath, (event, fileName) => {
-            if (fileName) {
-                if (fsWait) return
-                fsWait = setTimeout(() => {
-                    fsWait = false
-                }, 100)
 
-                console.log(blue(`${prefix} Restarting due to changes`))
-                this.compileFile(file)
-            }
+    watchFile() {
+        const watcher = chokidar.watch(this.file.watchPath)
+
+        watcher.on('change', () => {
+            this.logs.restarting()
+            this.compileFile()
         })
-    },
-    compileFile: function (file) {
-        let done = false
-        let err = false
-        let compileFile
+    }
 
-        if (file.extension === '.cpp') {
-            compileFile = spawn('g++', [
-                '-o',
-                file.name + file.exe,
-                file.compilePath + file.extension,
-            ])
+
+    compileFile() {
+        let command
+
+        if (this.file.extension === '.cpp') {
+            command = 'g++'
         } else {
-            compileFile = spawn('gcc', [
-                '-o',
-                file.name + file.exe,
-                file.compilePath + file.extension,
-            ])
+            command = 'gcc'
         }
+
+        const compileFile = spawn(command, [
+            '-o',
+            this.file.name + this.file.exe,
+            this.file.compilePath + this.file.extension,
+        ])
 
         compileFile.on('error', error => {
-            if (!done) {
-                console.error(blue(prefix) + red(' Error\n') + error)
-                done = true
-            }
-            err = true
+            return this.logs.error(error)
         })
-        compileFile.stderr.on('data', data => {
-            if (!done) {
-                console.error(blue(prefix) + red(' Compiling error'))
-                console.error(this.decode(data))
-                done = true
-            }
-            err = true
+        compileFile.stderr.on('data', error => {
+            return this.logs.stdError(error)
         })
         compileFile.stdout.on('data', data => {
             console.log(data)
         })
         compileFile.on('exit', (code, signal) => {
-            if (!err) {
-                console.log(blue(`${prefix} Compiled successfully`))
-
-                if (!compileOnlyF) this.openFile(file)
+            if (!this.compileOnlyF) {
+                return this.openFile(this.file)
             }
         })
-    },
-    openFile: function (file) {
-        execFile(file.name + file.exe, (error, stdout, stderr) => {
-            if (error) return console.error(blue(prefix) + red(' .exe Error\n') + error)
-            if (stderr) return console.error(blue(prefix) + red(' .exe StdError\n') + error)
+    }
 
-            console.log(stdout)
+
+    openFile() {
+        const openFile = exec(`./${this.file.name}${this.file.exe}`)
+
+        openFile.on('error', error => {
+            return this.logs.errorOpening(error)
         })
-    },
+        openFile.stderr.on('data', error => {
+            return this.logs.stdErrorOpening(error)
+        })
+        openFile.stdout.on('data', data => {
+            console.log(data)
+        })
+    }
 
-    help: function () {
-        const tab = '  '
 
-        console.log(
-            blue(
-                `\n${tab}${packageName} is used to automatically compile and run\n\ta [.c] or [.cpp] file when it is modified`,
-            ),
-        )
-
-        console.log(blue(`\n\n${tab}Options:`))
-        console.log(blue(`${tab}    -h, --help ............ open CLI options`))
-        console.log(
-            blue(`${tab}    -c, --compile ......... compilation without starting the program`),
-        )
-        console.log(
-            blue(`${tab}    -d, --directory ....... watch a directory and compile specific file`),
-        )
-        console.log(blue(`${tab}\t\t\t      (the file name must be after the -d argument)`))
-
-        console.log(blue(`\n\n${tab}Examples:`))
-        console.log(blue(`${tab}    $ cpace -h`))
-        console.log(blue(`${tab}    $ cpace [file.cpp]`))
-        console.log(blue(`${tab}    $ cpace [file.cpp] -c`))
-        console.log(blue(`${tab}    $ cpace {directory} -d [file.cpp]`))
-        console.log(blue(`${tab}    $ cpace {directory} -d [file.cpp] -c`))
-
+    help() {
+        this.logs.help()
         process.exit()
-    },
+    }
 
-    getExtension: function (file) {
-        if (file.name.includes('.cpp')) {
-            file.extension = '.cpp'
-            file.name = file.name.substring(0, file.name.length - 4)
-        } else if (file.name.includes('.c')) {
-            file.extension = '.c'
-            file.name = file.name.substring(0, file.name.length - 2)
-        } else {
-            file.extension = ''
-            console.error(blue(prefix) + red(' Error: ') + blue('Wrong flag or file extension'))
-            process.exit()
-        }
-    },
 
-    decode: function (data) {
-        const decoded = data.toString('utf8')
-        return decoded
-    },
+    isWindows() {
+        return !(process.platform == 'darwin' || process.platform == 'linux')
+    }
 }
-
-app.init()
-export { app }
+export default Cpace

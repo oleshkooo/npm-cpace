@@ -2,11 +2,11 @@
     "name": "cpace",
     "version": "1.2.1",
     "description": "Nodemon for C/C++ files. Monitor for any changes in your [.c] and [.cpp] application and automatically restart it - perfect for development",
-    "main": "cpace.js",
+    "main": "index.js",
     "type": "module",
     "preferGlobal": true,
     "bin": {
-        "cpace": "cpace.js"
+        "cpace": "./index.js"
     },
     "scripts": {
         "lint": "eslint .",
@@ -40,7 +40,8 @@
         "url": "https://github.com/Oleshkooo/npm-cpace/issues"
     },
     "dependencies": {
-        "chalk": "^5.0.1"
+        "chalk": "^5.0.1",
+        "chokidar": "^3.5.3"
     },
     "devDependencies": {
         "@eslint/create-config": "^0.3.1",
