@@ -1,36 +1,77 @@
 {
+    "root": true,
     "env": {
-        "browser": true,
-        "es2021": true
+        "node": true
     },
-    "extends": ["google", "plugin:import/errors", "plugin:import/warnings"],
-    "overrides": [],
+    "parser": "@typescript-eslint/parser",
     "parserOptions": {
+        "project": "./tsconfig.json",
         "ecmaVersion": "latest",
         "sourceType": "module"
     },
+    "plugins": ["@typescript-eslint"],
+    "extends": [
+        "eslint:recommended",
+        "standard-with-typescript",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended",
+        "prettier"
+    ],
+    // "settings": {
+    //     "import/resolver": {
+    //         "typescript": {
+    //             "project": "./tsconfig.json"
+    //         }
+    //     }
+    // },
+    "overrides": [],
     "rules": {
+        "indent": ["off", 4],
+        "no-console": "off",
         "no-unused-vars": "off",
-        "linebreak-style": "off",
-        "semi": ["warn", "never"],
-        "eol-last": "off",
-        "indent": ["warn", 4],
-        "quotes": ["warn", "single"],
-        "prefer-const": "warn",
-        "max-len": "off",
+        "no-eval": "error",
+        "no-use-before-define": "off",
+        "no-shadow": "off",
+
+        "import/first": "error",
+        "import/prefer-default-export": "off",
         "import/order": [
             "warn",
             {
-                "groups": ["builtin", "external", "internal", "parent", "sibling", "index", "object", "type"],
+                "groups": [
+                    "builtin",
+                    "external",
+                    "internal",
+                    "parent",
+                    "sibling",
+                    "index",
+                    "object",
+                    "type"
+                ],
                 "newlines-between": "always-and-inside-groups"
             }
         ],
-        "no-console": "off",
+        "import/extensions": "off",
+        "import/no-duplicates": "off",
+
+        "linebreak-style": "off",
+        "semi": ["warn", "never"],
+        "eol-last": "off",
+        "quotes": ["warn", "single"],
+        "prefer-const": "warn",
+        "max-len": "off",
         "require-jsdoc": "off",
         "prefer-promise-reject-errors": "off",
         "object-curly-spacing": ["warn", "always"],
         "space-before-function-paren": "off",
         "arrow-parens": "off",
-        "brace-style": "off"
+        "brace-style": "off",
+        "comma-dangle": "off",
+
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-unused-vars": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-invalid-void-type": "off"
     }
 }
