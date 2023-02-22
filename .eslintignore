@@ -4,3 +4,4 @@ build/
 dist/
 package-lock.json
 rollup.config.js
+rollup.config.mjs

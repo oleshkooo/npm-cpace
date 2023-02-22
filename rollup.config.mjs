@@ -3,7 +3,7 @@ import tsPlugin from 'rollup-plugin-ts'
 const plugins = [tsPlugin()]
 const external = ['child_process', 'fs', 'path', 'chokidar', 'chalk', 'simple-update-notifier']
 
-const pgk = {
+const pkg = {
     plugins,
     external,
     input: './src/index.ts',
@@ -27,4 +27,4 @@ const cli = {
     },
 }
 
-export default [pgk, cli]
+export default [pkg, cli]
